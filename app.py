@@ -78,7 +78,13 @@ def safe_nltk_download(package_path: str):
             raise
 
 # Ensure required NLTK resources
-for pkg in ("tokenizers/punkt", "corpora/stopwords", "taggers/averaged_perceptron_tagger"):
+# Ensure required NLTK resources
+for pkg in (
+    "tokenizers/punkt",
+    "tokenizers/punkt_tab",   # NEW — required by newer NLTK versions
+    "corpora/stopwords",
+    "taggers/averaged_perceptron_tagger",
+):
     safe_nltk_download(pkg)
 
 try:
@@ -405,4 +411,5 @@ if st.button("Search and Analyze Reddit Posts"):
 
             except Exception as e:
                 st.error(f"An unexpected error occurred: {e}")
+
                 logger.exception("Unhandled error in main flow")
